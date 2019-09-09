@@ -1,0 +1,84 @@
+screens:
+
+  training_area: &training_area
+    name: 'Training Area'
+    pixels:
+      - pos: &levelup_course [540, 400]
+        color: '#747b4f'
+      - pos: &strike_course [540, 800]
+        color: '#b2513f'
+      - pos: &tech_course [540, 1130]
+        color: '#599472'
+      - pos: &support_course [540, 1450]
+        color: '#3c5175'
+
+  training_area_courses: &training_area_courses
+    name: 'Training Area Courses'
+    pixels:
+      - pos: &quest_1 [540, 525]
+        color: '#ff91a2'
+      - pos: &quest_2 [540, 850]
+        color: '#ff91a3'
+      - pos: &quest_3 [540, 1180]
+        color: '#ff91a3'
+      - pos: &quest_back_button [60, 1825]
+        color: '#8cb6bb'
+
+  battle_team_select: &battle_team_select
+    name: 'Team select'
+    pixels:
+      - pos: [120, 60]
+        color: '#ef5065'
+      - pos: [950, 60]
+        color: '#ef4e65'
+      # Go button
+      - pos: &battle_go [420, 1837]
+        color: '#eec228'
+
+  battle_end_win: &battle_end_win
+    name: 'Battle victory'
+    pixels:
+      - pos: [120, 1564]
+        color: '#eef5f3'
+      - pos: [540, 1480]
+        color: '#ffffff'
+
+  battle_rewards: &battle_rewards
+    name: 'Battle rewards'
+    pixels:
+      - pos: [540, 155]
+        color: '#2e6d7a'
+      - pos: &rewards_ok [420, 1837]
+        color: '#eec329'
+
+scripts:
+
+  handle_battle: &handle_battle
+    - wait_for: *battle_team_select
+    - tap: *battle_go
+    - wait_for: *battle_end_win
+    - tap: [250, 250] # Anywhere on the screen
+    - wait_for: *battle_rewards
+    - tap: *rewards_ok
+
+  visit_course_quests: &visit_course_quests
+    - wait_for: *training_area_courses
+    - tap: *quest_1
+    - commands: *handle_battle
+    - wait_for: *training_area_courses
+    - tap: *quest_2
+    - commands: *handle_battle
+    - wait_for: *training_area_courses
+    - tap: *quest_back_button
+    - wait_for: *training_area
+
+commands:
+  - wait_for: *training_area
+  - tap: *levelup_course
+  - commands: *visit_course_quests
+  - tap: *strike_course
+  - commands: *visit_course_quests
+  - tap: *tech_course
+  - commands: *visit_course_quests
+  - tap: *support_course
+  - commands: *visit_course_quests

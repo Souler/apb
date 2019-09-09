@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+script_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+node -r esm  "$script_path/apb.js" "$@"
