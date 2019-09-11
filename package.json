@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "android-platform-tools": "^3.0.2",
     "chalk": "^2.4.2",
     "esm": "^3.2.25",
     "get-pixels": "^3.3.2",
